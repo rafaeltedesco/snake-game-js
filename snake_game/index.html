@@ -9,15 +9,35 @@
         <title>Snake Game</title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" href="">
+        <link rel="stylesheet" href="css/style.css" />
     </head>
     <body>
         <!--[if lt IE 7]>
             <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="#">upgrade your browser</a> to improve your experience.</p>
         <![endif]-->
-
-        <canvas id="snake" width="512" height="512"></canvas>
-        
+            <main class="container">
+                <nav>
+                    <h1>Snake Game</h1>
+                </nav>
+                <section class="menu">
+                    <a href="#" class="play" id="play">Start Game</a>
+                    <div id="level-card" class='card'>
+                        <h4>Level</h4>
+                        <h5 id='inner-level'>1</h5>
+                    </div>
+                    <div class="card">
+                        <h4>Score</h4>
+                        <h5 id="score">0</h5>
+                    </div> 
+                </section>
+                <section class="game">
+                    <canvas id="snake" width="512" height="512"></canvas>
+                </section>
+                <footer>
+                    <p>Created by <a href="https://www.linkedin.com/in/rafael-tedesco/">Rafael Tedesco</a></p>
+                </footer>
+            </main>
+            
         <script src="js/main.js" async defer></script>
     </body>
 </html>

@@ -1,3 +1,7 @@
+let levelCard = document.getElementById('level-card')
+let play = document.getElementById('play')
+let innerLevel = document.getElementById('inner-level')
+let scoreCard = document.getElementById('score')
 let canvas = document.getElementById('snake')
 let context = canvas.getContext('2d')
 let box = 32
@@ -7,28 +11,55 @@ snake[0] = {
     y: 8 * box,
 }
 
+let score = 0
+
 let apple = {
-    x: Math.floor(Math.random() * 15 + 1) * box,
-    y: Math.floor(Math.random() * 15 + 1) * box
+    x: 0,
+    y: 0
 }
 
+let level = 1
 let direction = 'right'
-let game = setInterval(playGame, 100)
+let game
+
+levelCard.style.display = 'none'
+
+play.addEventListener('click', ()=> {
+    game = setInterval(playGame, 300)    
+    score = 0
+    play.style.display = 'none'
+    levelCard.style.display = 'block'
+    appleRandomPos()
+    
+})
+
+
+function levelUp() {
+    level+= 1
+    innerLevel.innerHTML = level
+    game = setInterval(playgame, 300/level)
+}
+
 
 function createBG() {
-    context.fillStyle = 'lightgreen'
+    context.fillStyle = '#333'
     context.fillRect(0, 0, 16 * box, 16*box);
+}
+
+function appleRandomPos() {
+    apple.x = Math.floor(Math.random() * 15 + 1) * box
+    apple.y = Math.floor(Math.random() * 15 + 1) * box
 }
 
 function createSnake() {
     for (let i=0; i < snake.length; i++){
-        context.fillStyle = 'green'
+        context.fillStyle = 'lightblue'
         context.fillRect(snake[i].x, snake[i].y, box, box)
     }
 }
 
 function drawFood() {
-    context.fillStyle = 'red'
+    context.fillStyle = 'white'
     context.fillRect(apple.x, apple.y, box, box)
 }
 
@@ -68,10 +99,25 @@ function snakeOut() {
     }
 }
 
+function eatApple(snakeX, snakeY) {
+    if (snakeX != apple.x || snakeY != apple.y) {
+        return true
+    }
+    else {
+        return false
+    }
+}
 
-function snakeMoveDirection() {
 
+function collision() {
     
+    for (let i= 1; i < snake.length; i++){
+        if (snake[0].x == snake[i].x && snake[0].y == snake[i].y) {
+            gameOver()
+        }
+
+    }
+
 }
 
 function snakeMoving() {
@@ -99,7 +145,17 @@ function snakeMoving() {
         
     }
 
-    snake.pop()
+    if (eatApple(snakeX, snakeY)) {
+        snake.pop()
+    }
+    else {
+        appleRandomPos()
+        score+=10
+        scoreCard.innerHTML = score
+        if (score % 50  == 0) {
+            levelUp()
+        }
+    }
 
     let newHead = {
         x: snakeX,
@@ -108,17 +164,38 @@ function snakeMoving() {
 
     snake.unshift(newHead)
 
-    snakeOut()
-
+    snakeOut()   
 }
 
 
 function playGame() {
 
     createBG()
+    drawFood()
     createSnake()
     snakeMoving()
-    drawFood()
+    collision()
 
 }
 
+
+menu()
+function menu() {
+    context.fillStyle = '#333'
+    context.fillRect(0, 0, 16 * box, 16*box);
+    context.font = '30px Verdana'
+    context.fillStyle = '#fff'
+    context.textAlign = 'center'
+    context.fillText('Click "Start Game" to play', canvas.width/2, canvas.height/2)
+}
+
+
+function gameOver() {
+    clearInterval(game)
+ 
+    createBG()
+    context.font = '30px Verdana'
+    context.fillStyle = '#fff'
+    context.textAlign = 'center'
+    context.fillText('Game Over', canvas.width/2, canvas.height/2)
+}

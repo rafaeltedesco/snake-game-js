@@ -1,0 +1,103 @@
+body {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    background-color: lightgrey;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+h1 {
+    margin:0;
+    padding:0;
+}
+
+.container {
+    display: grid;
+    height: 100vh;
+    grid-template-areas: 
+    "head head"
+    "menu game" 
+    "foot foot";
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 3fr 1fr;
+ 
+}
+
+
+
+nav {
+    background-color: darkslategray;
+    color: #fff;
+    text-align: center;
+    width: 100%;
+    grid-area: head;
+    align-self: center;
+    margin-bottom: 0.2rem;
+}
+
+nav > h1 {
+    font-size: 2rem;
+    padding: 0.5rem;
+}
+
+.menu {
+    grid-area: menu;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    text-align: center;
+    
+    
+}
+
+.play {
+    font-size: 3rem;
+    
+}
+
+.play:hover {
+    color: seagreen;
+}
+
+
+.game {
+    grid-area: game;
+    background-color: lightgrey;
+    
+}
+
+footer {
+    background-color: darkslategray;
+    text-align: center;
+    font-weight: 300;
+    grid-area: foot;
+    
+}
+
+footer > p {
+    margin-right: 2rem;
+}
+
+.menu > a {
+ color: darkslategray;
+ font-weight: bold;
+}
+
+
+footer p {
+    color: #fff;
+}
+
+a {
+    text-decoration: none;
+    color: #fff;
+}
+
+.card {
+    font-size: 2.5rem;
+    width: 20rem;
+    border-radius: 1.2rem;
+color: #666;
+}
+
