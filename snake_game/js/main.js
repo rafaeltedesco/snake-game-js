@@ -7,6 +7,11 @@ snake[0] = {
     y: 8 * box,
 }
 
+let apple = {
+    x: Math.floor(Math.random() * 15 + 1) * box,
+    y: Math.floor(Math.random() * 15 + 1) * box
+}
+
 let direction = 'right'
 let game = setInterval(playGame, 100)
 
@@ -20,6 +25,11 @@ function createSnake() {
         context.fillStyle = 'green'
         context.fillRect(snake[i].x, snake[i].y, box, box)
     }
+}
+
+function drawFood() {
+    context.fillStyle = 'red'
+    context.fillRect(apple.x, apple.y, box, box)
 }
 
 
@@ -42,8 +52,7 @@ function update(e) {
 
 }
 
-
-function playGame() {
+function snakeOut() {
     
     if (snake[0].x > 15 * box && direction == 'right') {
         snake[0].x = 0
@@ -57,9 +66,15 @@ function playGame() {
     if (snake[0].y > 15 * box && direction == 'down') {
         snake[0].y = 0
     }
+}
 
-    createBG()
-    createSnake()
+
+function snakeMoveDirection() {
+
+    
+}
+
+function snakeMoving() {
 
     let snakeX = snake[0].x
     let snakeY = snake[0].y
@@ -92,6 +107,18 @@ function playGame() {
     }
 
     snake.unshift(newHead)
+
+    snakeOut()
+
+}
+
+
+function playGame() {
+
+    createBG()
+    createSnake()
+    snakeMoving()
+    drawFood()
 
 }
 
